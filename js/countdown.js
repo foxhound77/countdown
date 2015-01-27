@@ -1,19 +1,30 @@
-// Function to complete.
-function CountDownTimer(dateTime, divId) {
-    var end     = new Date(dateTime);
-    var _second = 1000;
-    var _minute = _second * 60;
-    var _hour   = _minute * 60;
-    var _day    = _hour * 24;
-    var timer;
+//change the text below to reflect your own,
+var current = "Happy Birthday Chris and Nancy!";
+var monthArray = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+var seconds = 1000;
+var minutes = seconds*60;
+var hours = minutes*60;
+var days = hours*24;
 
-    function showRemaining() {
-       // ... 
-    }
+function countdown(yr, m, d) {
 
-    timer = setInterval(showRemaining(), 1000);
+	year = yr; month = m; day = d;
+	var today = new Date();
+	var futureDate = monthArray[m-1] +" "+ d +", "+ yr;
+	var difference = Date.parse(futureDate) - Date.parse(today);
+	var dayRemaining = Math.floor(difference/days);
+	var hourRemaining = Math.floor((difference%days)/hours);
+	var minRemaining = Math.floor(((difference%days)%hours)/minutes);
+	var secRemaining = Math.floor((((difference%days)%hours)%minutes)/seconds);
+
+	if(dayRemaining == 0 && hourRemaining == 0 && minRemaining == 0 && secRemaining == 1){
+		document.forms.count.count2.value = current;
+		return
+	}
+	else{
+		document.forms.count.count2.value = dayRemaining +" days, "+ hourRemaining +" hours, "+ minRemaining +" minutes, and "+ secRemaining +" secs";
+		setTimeout("countdown(year, month, day)",1000);
+	}
 }
-
-// Enter the date and time as a string in the following format.  Second parameter is the HTML id of element where you want
-//    the countdown to appear.
-CountDownTimer('02/02/2015 12:00 AM', 'countDown');
+//enter the count down date using the format year/month/day
+countdown(2015, 2, 18);
